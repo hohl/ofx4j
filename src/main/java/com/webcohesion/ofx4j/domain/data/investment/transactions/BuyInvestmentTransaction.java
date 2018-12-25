@@ -16,6 +16,7 @@
 
 package com.webcohesion.ofx4j.domain.data.investment.transactions;
 
+import com.webcohesion.ofx4j.domain.data.common.Currency;
 import com.webcohesion.ofx4j.domain.data.investment.accounts.SubAccountType;
 import com.webcohesion.ofx4j.domain.data.seclist.SecurityId;
 import com.webcohesion.ofx4j.meta.Aggregate;
@@ -41,7 +42,7 @@ public class BuyInvestmentTransaction {
   private Double fees;
   private Double load;
   private Double total;
-  private String currencyCode;
+  private Currency currency;
   private OriginalCurrency originalCurrencyInfo;
   private String subAccountSecurity;
   private String subAccountFund;
@@ -279,11 +280,11 @@ public class BuyInvestmentTransaction {
    * info should be set according to the OFX spec. If neither are set, means the default currency.
    * @see "Section 13.9.2.4.3, OFX Spec"
    *
-   * @return the currency code for the transaction.
+   * @return the currency for the transaction or null in case of the base currency.
    */
-  @Element( name = "CURRENCY", order = 110)
-  public String getCurrencyCode() {
-    return currencyCode;
+  @ChildAggregate(order = 110)
+  public Currency getCurrency() {
+    return currency;
   }
 
   /**
@@ -291,11 +292,10 @@ public class BuyInvestmentTransaction {
    * info may be set according to the OFX spec. If neither are set, means the default currency.
    * @see "Section 13.9.2.4.3, OFX Spec"
    *
-   * @param currencyCode the currency code for the transaction.
+   * @param currency The currency for the transaction.
    */
-  public void setCurrencyCode(String currencyCode) {
-    this.currencyCode = currencyCode;
-    this.originalCurrencyInfo = null;
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
   }
 
   /**
@@ -317,7 +317,7 @@ public class BuyInvestmentTransaction {
    */
   public void setOriginalCurrencyInfo(OriginalCurrency originalCurrencyInfo) {
     this.originalCurrencyInfo = originalCurrencyInfo;
-    this.currencyCode = null;
+    this.currency = null;
   }
 
  /**
