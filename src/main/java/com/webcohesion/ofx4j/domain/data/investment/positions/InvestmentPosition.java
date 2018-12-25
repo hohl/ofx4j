@@ -16,6 +16,7 @@
 
 package com.webcohesion.ofx4j.domain.data.investment.positions;
 
+import com.webcohesion.ofx4j.domain.data.common.Currency;
 import com.webcohesion.ofx4j.domain.data.investment.accounts.SubAccountType;
 import com.webcohesion.ofx4j.domain.data.seclist.SecurityId;
 import com.webcohesion.ofx4j.meta.Aggregate;
@@ -43,6 +44,7 @@ public class InvestmentPosition {
   private String currencyCode;
   private String memo;
   private String inv401kSource;
+  private Currency currency;
 
   /**
    * Gets the security id for the position. This is a required field according to the OFX spec.
@@ -232,20 +234,18 @@ public class InvestmentPosition {
    *
    * @return the currency code of the position or null for the default currency
    */
-  @Element( name = "CURRENCY", order = 80)
-  public String getCurrencyCode() {
-    return currencyCode;
+  @ChildAggregate ( order = 180 )
+  public Currency getCurrency() {
+    return currency;
   }
 
   /**
-   * Sets the currency code of the position. This is an optional field according to the OFX spec.
-   * If not present, it's the default currency of the account.
-   * @see "Section 13.9.2.6.1, OFX Spec"
+   * The currency.
    *
-   * @param currencyCode the currency code of the position or null for the default currency
+   * @param currency The currency.
    */
-  public void setCurrencyCode(String currencyCode) {
-    this.currencyCode = currencyCode;
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
   }
 
   /**
