@@ -158,7 +158,7 @@ public class BasePosition {
    * @return the currency code of the position or null for the default currency
    */
   public String getCurrencyCode() {
-    return getInvestmentPosition().getCurrencyCode();
+    return getInvestmentPosition().getCurrency().getCode();
   }
 
   /**
